@@ -1,2 +1,11 @@
-# wendy-ai-order-desk
-Wendy - AI service order desk (static landing page)
+# 温蒂 · AI 接单服务｜需求下单台
+
+在线需求下单页（静态单文件，无外部依赖）。
+
+**访问地址：** https://wendy550480802-0203.github.io/wendy-ai-order-desk/
+
+---
+
+客户可在页面中选择服务类别、填写需求、按提示自检，然后一键生成询单卡或直接发送邮件。
+
+本仓库仅包含面向客户的公开下单页面，不含任何内部资料。
