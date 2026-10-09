@@ -535,7 +535,7 @@
       <div class="num">01</div>
       <div class="sec-txt">
         <h2>你要做什么</h2>
-        <span class="hint">可以多选 · 选完自动估算区间 · 价格以 ¥ 为主、A$ 为辅</span>
+        <span class="hint">可以多选 · 选完自动估算区间 · 下表为<b>基础版起价</b>，¥ 为主价、A$ 为辅价</span>
       </div>
     </div>
     <div class="panel" id="picker"></div>
@@ -575,7 +575,7 @@
         </div>
         <div class="field">
           <label><span class="q">⑤</span>预算大概？ <span class="opt">我按预算配方案</span></label>
-          <input type="text" id="f_budget" placeholder="例：¥930–1870（≈A$200–400）/ 或说不确定">
+          <input type="text" id="f_budget" placeholder="例：¥580–1100（≈A$125–240）/ 或说不确定">
         </div>
         <div class="field">
           <label><span class="q">⑥</span>需要几轮修改？</label>
@@ -662,7 +662,8 @@
 
   <footer>
     <strong>说明 / NOTES</strong><br>
-    · 本页价格为<strong>参考区间</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算，最终报价以书面报价单为准。<br>
+    · 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。<br>
+    · <strong>澳洲本地客户</strong>（英文服务、以 AUD 结算）另按澳洲本地市场价目，约为上表 A$ 的 2 倍 —— 因为我们交付的是对标澳洲本地市场的中英双语能力。<br>
     · 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。<br>
     · 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。<br>
     · 交付前会先给样稿确认方向；标准含 2 轮修改。<br>
@@ -673,68 +674,70 @@
 <div class="toast" id="toast">已复制</div>
 
 <script>
-/* ========== 汇率（用于展示人民币参考价） ========== */
-/* 2026-10-09 中国外汇交易中心中间价：1 澳大利亚元 = 4.6746 人民币，取 4.67 便于心算 */
+/* ========== 汇率（仅用于报价单上的汇率标注） ========== */
+/* 2026-10-09 中国外汇交易中心中间价：1 澳大利亚元 = 4.6746 人民币，取 4.67 便于心算
+   注：定价 v3.0 起，¥ 与 A$ 均按各自市场独立定价（非实时换算），此处汇率仅作说明 */
 const AUD_CNY = 4.67;
-const cny = v => Math.round(v * AUD_CNY / 10) * 10;   // 取整到 10，看起来更干净
 
-/* ========== 服务数据（价格 = 基础版基准价，来自价目表 v2.0） ========== */
+/* ========== 服务数据（价格 = 基础版起价，来自定价 v3.0） ==========
+   r = 人民币（主价）  a = 澳元（实收辅价，+GST）  u = 计价单位后缀
+   定价 v3.0（2026-10-09）：内容 A −31% / 数据 B −18% / 视觉 C −40% / 技术 D −12% / AI 落地 F 不动 */
 const CATS = [
   { key:"A", name:"内容写作", items:[
-    { id:"A1", n:"公众号长文", d:"1800–2500 字", p:150, c:550 },
-    { id:"A2", n:"小红书笔记", d:"10 条起 · 每条", p:30, c:90 },
-    { id:"A3", n:"品牌故事", d:"关于我们/品牌叙事", p:200, c:700 },
-    { id:"A4", n:"简历优化 ★", d:"澳洲求职场景", p:180, c:650 },
-    { id:"A5", n:"求职信", d:"按 JD 定制", p:90, c:320 },
-    { id:"A6", n:"LinkedIn 优化", d:"主页文案", p:120, c:430 },
-    { id:"A7", n:"留学文书润色", d:"PS / CV", p:180, c:650 },
-    { id:"A8", n:"中英商务翻译", d:"按字数计价", p:80, c:0 },
-    { id:"A9", n:"演讲稿 / 致辞", d:"含主持稿", p:120, c:430 },
-    { id:"A10", n:"电子书 / 手册", d:"撰写 + 排版", p:500, c:1800 },
-    { id:"A11", n:"商品详情页", d:"含卖点拆解", p:70, c:250 },
-    { id:"A12", n:"邮件营销序列", d:"5–7 封", p:350, c:1250 }
+    { id:"A1", n:"公众号长文", d:"1800–2500 字", r:480, a:105 },
+    { id:"A2", n:"小红书笔记", d:"10 条起 · 每条", r:80, a:18 },
+    { id:"A3", n:"品牌故事", d:"关于我们/品牌叙事", r:650, a:140 },
+    { id:"A4", n:"简历优化 ★", d:"澳洲求职场景", r:580, a:125 },
+    { id:"A5", n:"求职信", d:"按 JD 定制", r:280, a:60 },
+    { id:"A6", n:"LinkedIn 优化", d:"主页文案", r:380, a:80 },
+    { id:"A7", n:"留学文书润色", d:"PS / CV", r:580, a:125 },
+    { id:"A8", n:"中英商务翻译", d:"按字数 · 最低价", r:260, a:60 },
+    { id:"A9", n:"演讲稿 / 致辞", d:"含主持稿", r:380, a:80 },
+    { id:"A10", n:"电子书 / 手册", d:"撰写 + 排版", r:1600, a:345 },
+    { id:"A11", n:"商品详情页", d:"含卖点拆解", r:230, a:50 },
+    { id:"A12", n:"邮件营销序列", d:"5–7 封", r:1150, a:245 }
   ]},
   { key:"B", name:"数据与表格", items:[
-    { id:"B1", n:"Excel 建模", d:"模板/公式定制", p:120, c:430 },
-    { id:"B2", n:"数据清洗整理", d:"脏数据处理", p:100, c:360 },
-    { id:"B3", n:"财务报表整理", d:"整理归档 · 不含税务意见", p:180, c:0 },
-    { id:"B4", n:"可视化仪表盘", d:"单文件 HTML", p:350, c:1250 },
-    { id:"B5", n:"市场调研报告", d:"含信源核实", p:450, c:1600 },
-    { id:"B6", n:"问卷设计+分析", d:"设计到结论", p:250, c:900 },
-    { id:"B7", n:"竞品监测表", d:"价格/销量", p:150, c:550 },
-    { id:"B8", n:"票据归档自动化", d:"文件夹+索引", p:120, c:430 }
+    { id:"B1", n:"Excel 建模", d:"模板/公式定制", r:460, a:100 },
+    { id:"B2", n:"数据清洗整理", d:"脏数据处理", r:390, a:84 },
+    { id:"B3", n:"财务报表整理", d:"整理归档 · 不含税务意见", r:700, a:150 },
+    { id:"B4", n:"可视化仪表盘", d:"单文件 HTML", r:1300, a:280 },
+    { id:"B5", n:"市场调研报告", d:"含信源核实", r:1700, a:365 },
+    { id:"B6", n:"问卷设计+分析", d:"设计到结论", r:950, a:205 },
+    { id:"B7", n:"竞品监测表", d:"价格/销量", r:570, a:122 },
+    { id:"B8", n:"票据归档自动化", d:"文件夹+索引", r:460, a:100 }
   ]},
   { key:"C", name:"演示与视觉", items:[
-    { id:"C1", n:"PPT 全套制作", d:"大纲到成品", p:300, c:1100 },
-    { id:"C2", n:"PPT 美化改版", d:"视觉统一", p:150, c:550 },
-    { id:"C3", n:"信息图 / 知识卡片", d:"竖版长图", p:90, c:320 },
-    { id:"C4", n:"海报 / 宣传图", d:"单张", p:70, c:250 },
-    { id:"C5", n:"短视频脚本+分镜", d:"含分镜表", p:150, c:550 },
-    { id:"C6", n:"封面图批量", d:"每张", p:25, c:90 },
-    { id:"C7", n:"产品图精修", d:"去背景 · 每张", p:8, c:30 },
-    { id:"C8", n:"活动物料包", d:"海报+邀请函+易拉宝", p:350, c:1250 }
+    { id:"C1", n:"PPT 全套制作", d:"大纲到成品", r:850, a:180 },
+    { id:"C2", n:"PPT 美化改版", d:"视觉统一", r:420, a:90 },
+    { id:"C3", n:"信息图 / 知识卡片", d:"竖版长图", r:250, a:55 },
+    { id:"C4", n:"海报 / 宣传图", d:"单张", r:190, a:40 },
+    { id:"C5", n:"短视频脚本+分镜", d:"含分镜表", r:450, a:96 },
+    { id:"C6", n:"封面图批量", d:"每张", r:60, a:13 },
+    { id:"C7", n:"产品图精修", d:"去背景 · 每张", r:25, a:5 },
+    { id:"C8", n:"活动物料包", d:"海报+邀请函+易拉宝", r:950, a:205 }
   ]},
   { key:"D", name:"代码与技术", items:[
-    { id:"D1", n:"落地页 / 官网", d:"链接+源码", p:800, c:2900 },
-    { id:"D2", n:"微信小程序", d:"定制开发", p:2500, c:9000 },
-    { id:"D3", n:"表格自动化脚本", d:"脚本+说明", p:250, c:900 },
-    { id:"D4", n:"数据抓取整理", d:"公开数据", p:350, c:1250 },
-    { id:"D5", n:"轻量小工具", d:"可运行程序", p:500, c:1800 },
-    { id:"D6", n:"网站维护 / 改 bug", d:"按次", p:150, c:550 }
+    { id:"D1", n:"落地页 / 官网", d:"链接+源码", r:3300, a:705 },
+    { id:"D2", n:"微信小程序", d:"定制开发", r:10200, a:2180 },
+    { id:"D3", n:"表格自动化脚本", d:"脚本+说明", r:1000, a:215 },
+    { id:"D4", n:"数据抓取整理", d:"公开数据", r:1400, a:300 },
+    { id:"D5", n:"轻量小工具", d:"可运行程序", r:2000, a:430 },
+    { id:"D6", n:"网站维护 / 改 bug", d:"按次", r:580, a:125 }
   ]},
   { key:"E", name:"情报与研究 ★ 订阅制", items:[
-    { id:"E1", n:"定制情报简报 ★", d:"每日/每周推送 · 每月", p:89, c:0 },
-    { id:"E2", n:"竞品动态监测", d:"周报+预警 · 每月", p:120, c:0 },
-    { id:"E3", n:"政策法规追踪", d:"变更提醒 · 每月", p:80, c:0 },
-    { id:"E4", n:"深度研究报告", d:"一次性 PDF", p:450, c:1600 },
-    { id:"E5", n:"选题/灵感库", d:"每周 · 每月", p:60, c:0 }
+    { id:"E1", n:"定制情报简报 ★", d:"每周起 · 订阅", r:150, a:32, u:"/月" },
+    { id:"E2", n:"竞品动态监测", d:"周报+预警 · 订阅", r:300, a:65, u:"/月" },
+    { id:"E3", n:"政策法规追踪", d:"变更提醒 · 订阅", r:190, a:40, u:"/月" },
+    { id:"E4", n:"深度研究报告", d:"一次性 PDF", r:1700, a:365 },
+    { id:"E5", n:"选题/灵感库", d:"每周 · 订阅", r:150, a:32, u:"/月" }
   ]},
   { key:"F", name:"AI 落地服务", items:[
-    { id:"F1", n:"AI 工具选型", d:"方案+演示", p:300, c:1100 },
-    { id:"F2", n:"AI 工作流搭建 ★", d:"配置+手册", p:900, c:3300 },
-    { id:"F3", n:"AI 助理定制", d:"配置+培训", p:600, c:2200 },
-    { id:"F5", n:"自媒体自动化流水线", d:"流水线+手册", p:1500, c:5500 },
-    { id:"F6", n:"自动化月度维护", d:"持续运维 · 每月", p:1200, c:0 }
+    { id:"F1", n:"AI 工具选型", d:"方案+演示", r:1400, a:300 },
+    { id:"F2", n:"AI 工作流搭建 ★", d:"配置+手册", r:4200, a:900 },
+    { id:"F3", n:"AI 助理定制", d:"配置+培训", r:2800, a:600 },
+    { id:"F5", n:"自媒体自动化流水线", d:"流水线+手册", r:6800, a:1450 },
+    { id:"F6", n:"自动化月度维护", d:"持续运维 · 订阅", r:3400, a:730, u:"/月" }
   ]}
 ];
 
@@ -760,8 +763,9 @@ CATS.forEach(cat=>{
   cat.items.forEach(it=>{
     const b=document.createElement('button');
     b.type='button'; b.className='chip'; b.dataset.id=it.id;
-    const cn = it.c ? `¥${cny(it.p)}–${cny(it.c)}` : `¥${cny(it.p)} 起`;
-    const au = it.c ? `A$${it.p}–${it.c}` : `A$${it.p} 起`;
+    const unit = it.u || '';
+    const cn = `¥${it.r} 起${unit}`;
+    const au = `A$${it.a} 起${unit}`;
     b.innerHTML = `${it.n}<span class="p">${it.d}<b>${cn}<i> · ${au}</i></b></span>`;
     b.addEventListener('click',()=>{
       if(picked.has(it.id)){ picked.delete(it.id); b.classList.remove('on'); }
@@ -781,17 +785,17 @@ function getItem(id){
 function updateTally(){
   const t=document.getElementById('tally');
   if(picked.size===0){ t.innerHTML='<span class="empty">还没选服务——先点上面的卡片 🦞</span>'; return; }
-  let low=0, subs=0, subsLow=0;
+  let lowR=0, lowA=0, subs=0;
   picked.forEach(id=>{
     const it=getItem(id);
-    if(it.cat.key==='E'||id==='F6'){ subs++; subsLow+=it.p; }
-    else low+=it.p;
+    lowR += it.r; lowA += it.a;
+    if(it.cat.key==='E'||id==='F6') subs++;
   });
-  const lower = Math.round((low + subsLow) * 1.0);
-  const upper = Math.round(low*2.5 + subsLow*2.0);
+  const lowerR = Math.round(lowR),  upperR = Math.round(lowR*1.9);
+  const lowerA = Math.round(lowA),  upperA = Math.round(lowA*1.9);
   let html = `<span>已选 <strong>${picked.size}</strong> 项`;
   if(subs) html += `（含 ${subs} 项订阅/运维）`;
-  html += ` · 基准区间</span><span class="amt">¥${cny(lower)} – ${cny(upper)} <i>| A$${lower} – ${upper}</i></span>`;
+  html += ` · 基础版 → 尊享版</span><span class="amt">¥${lowerR} – ${upperR} <i>| A$${lowerA} – ${upperA}</i></span>`;
   t.innerHTML = html;
 }
 
@@ -860,9 +864,10 @@ document.getElementById('gen').addEventListener('click',()=>{
   const contact = document.getElementById('f_contact').value.trim() || '（未填）';
   const list = [...picked].map(id=>{ const it=getItem(id); return `  · ${it.id} ${it.n}（${it.d}）`; }).join('\n');
 
-  let low=0,subs=0,subsLow=0;
-  picked.forEach(id=>{ const it=getItem(id); if(it.cat.key==='E'||id==='F6'){subs++;subsLow+=it.p;} else low+=it.p; });
-  const lower=Math.round(low+subsLow), upper=Math.round(low*2.5+subsLow*2.0);
+  let lowR=0, lowA=0;
+  picked.forEach(id=>{ const it=getItem(id); lowR+=it.r; lowA+=it.a; });
+  const lowerR=Math.round(lowR), upperR=Math.round(lowR*1.9);
+  const lowerA=Math.round(lowA), upperA=Math.round(lowA*1.9);
 
   const txt =
 `━━━━━━━━━━━━━━━━━━━━━━
@@ -886,10 +891,10 @@ ${list}
 ⑥ 修改轮次：${segVal('f_rounds')}
 
 【基准价区间（参考）】
-RMB ¥${cny(lower)} – ${cny(upper)}（主价）
-AUD A$${lower} – ${upper} + GST（实收）
+RMB ¥${lowerR} – ${upperR}（主价）
+AUD A$${lowerA} – ${upperA} + GST（实收）
 汇率 1 AUD ≈ ${AUD_CNY} CNY
-（专业版 ×1.6 / 尊享版 ×2.5）
+（专业版 ×1.4 / 尊享版 ×1.9）
 
 【红线自检】
 ${hitsNow().length ? '⚠️ 含待确认内容：'+hitsNow().join('、') : '✅ 无问题'}
