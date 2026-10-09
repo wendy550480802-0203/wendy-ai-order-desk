@@ -269,6 +269,8 @@
     box-shadow:0 0 0 1px rgba(79,224,245,.28), 0 16px 32px -18px rgba(79,224,245,.95);
   }
   .chip .p{display:block;font-size:10.5px;opacity:.8;font-weight:400;margin-top:3px;font-family:var(--font-mono);letter-spacing:.01em;color:var(--ink-3)}
+  .chip .p b{display:block;font-weight:600;margin-top:3px;color:var(--cyan-2);opacity:1;letter-spacing:.01em}
+  .chip .p b i{font-style:normal;font-weight:500;opacity:.58;letter-spacing:0}
   .chip.on .p{color:rgba(234,254,255,.78)}
 
   /* ============ 表单 ============ */
@@ -420,6 +422,10 @@
     text-shadow:0 0 26px rgba(79,224,245,.75);
     white-space:nowrap;
   }
+  .tally .amt i{
+    font-style:normal;font-size:13.5px;font-weight:500;opacity:.72;
+    letter-spacing:0;margin-left:7px;color:var(--cyan-2);
+  }
   .tally strong{color:var(--ink);font-weight:700}
 
   /* ============ 页脚 ============ */
@@ -486,6 +492,7 @@
     .chips{gap:7px}
     .chip{flex:1 1 calc(50% - 4px);padding:8px 11px;font-size:12.5px;border-radius:10px}
     .chip .p{font-size:9.5px;margin-top:2px}
+    .chip .p b{font-size:9px;margin-top:2px;letter-spacing:0}
   }
 </style>
 </head>
@@ -528,7 +535,7 @@
       <div class="num">01</div>
       <div class="sec-txt">
         <h2>你要做什么</h2>
-        <span class="hint">可以多选 · 选完自动估算区间</span>
+        <span class="hint">可以多选 · 选完自动估算区间 · 价格以 ¥ 为主、A$ 为辅</span>
       </div>
     </div>
     <div class="panel" id="picker"></div>
@@ -568,7 +575,7 @@
         </div>
         <div class="field">
           <label><span class="q">⑤</span>预算大概？ <span class="opt">我按预算配方案</span></label>
-          <input type="text" id="f_budget" placeholder="例：200–400 AUD / 或说不确定">
+          <input type="text" id="f_budget" placeholder="例：¥930–1870（≈A$200–400）/ 或说不确定">
         </div>
         <div class="field">
           <label><span class="q">⑥</span>需要几轮修改？</label>
@@ -655,7 +662,7 @@
 
   <footer>
     <strong>说明 / NOTES</strong><br>
-    · 本页所有价格均为<strong>参考区间</strong>（AUD + GST / CNY），最终报价以书面报价单为准。<br>
+    · 本页价格为<strong>参考区间</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算，最终报价以书面报价单为准。<br>
     · 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。<br>
     · 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。<br>
     · 交付前会先给样稿确认方向；标准含 2 轮修改。<br>
@@ -666,6 +673,11 @@
 <div class="toast" id="toast">已复制</div>
 
 <script>
+/* ========== 汇率（用于展示人民币参考价） ========== */
+/* 2026-10-09 中国外汇交易中心中间价：1 澳大利亚元 = 4.6746 人民币，取 4.67 便于心算 */
+const AUD_CNY = 4.67;
+const cny = v => Math.round(v * AUD_CNY / 10) * 10;   // 取整到 10，看起来更干净
+
 /* ========== 服务数据（价格 = 基础版基准价，来自价目表 v2.0） ========== */
 const CATS = [
   { key:"A", name:"内容写作", items:[
@@ -748,7 +760,9 @@ CATS.forEach(cat=>{
   cat.items.forEach(it=>{
     const b=document.createElement('button');
     b.type='button'; b.className='chip'; b.dataset.id=it.id;
-    b.innerHTML = `${it.n}<span class="p">${it.d} · ${it.p}${it.c?' / '+it.c:''}</span>`;
+    const cn = it.c ? `¥${cny(it.p)}–${cny(it.c)}` : `¥${cny(it.p)} 起`;
+    const au = it.c ? `A$${it.p}–${it.c}` : `A$${it.p} 起`;
+    b.innerHTML = `${it.n}<span class="p">${it.d}<b>${cn}<i> · ${au}</i></b></span>`;
     b.addEventListener('click',()=>{
       if(picked.has(it.id)){ picked.delete(it.id); b.classList.remove('on'); }
       else { picked.add(it.id); b.classList.add('on'); }
@@ -777,7 +791,7 @@ function updateTally(){
   const upper = Math.round(low*2.5 + subsLow*2.0);
   let html = `<span>已选 <strong>${picked.size}</strong> 项`;
   if(subs) html += `（含 ${subs} 项订阅/运维）`;
-  html += ` · 基准区间</span><span class="amt">AUD ${lower} – ${upper}</span>`;
+  html += ` · 基准区间</span><span class="amt">¥${cny(lower)} – ${cny(upper)} <i>| A$${lower} – ${upper}</i></span>`;
   t.innerHTML = html;
 }
 
@@ -872,7 +886,9 @@ ${list}
 ⑥ 修改轮次：${segVal('f_rounds')}
 
 【基准价区间（参考）】
-AUD ${lower} – ${upper}  + GST
+RMB ¥${cny(lower)} – ${cny(upper)}（主价）
+AUD A$${lower} – ${upper} + GST（实收）
+汇率 1 AUD ≈ ${AUD_CNY} CNY
 （专业版 ×1.6 / 尊享版 ×2.5）
 
 【红线自检】
