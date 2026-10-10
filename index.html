@@ -142,6 +142,20 @@
   .brand .div{color:rgba(255,255,255,.22)}
   .status{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
   .status i{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(91,227,166,.55);animation:pulse 2.6s ease-out infinite}
+  /* ============ 语言切换 ============ */
+  .top-right{display:flex;align-items:center;gap:13px}
+  .lang{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink);background:rgba(79,224,245,.12);border:1px solid rgba(79,224,245,.45);
+    padding:6px 13px;border-radius:999px;cursor:pointer;white-space:nowrap;
+    transition:background .2s,border-color .2s,transform .12s;
+  }
+  .lang:hover{background:rgba(79,224,245,.22);border-color:rgba(79,224,245,.75)}
+  .lang:active{transform:translateY(1px)}
+  .lang .lang-en{display:none}
+  body.lang-en .lang .lang-zh{display:none}
+  body.lang-en .lang .lang-en{display:inline}
   @keyframes pulse{
     0%{box-shadow:0 0 0 0 rgba(91,227,166,.55)}
     70%{box-shadow:0 0 0 7px rgba(91,227,166,0)}
@@ -511,21 +525,24 @@
   <!-- ================= 顶栏 ================= -->
   <div class="topbar">
     <div class="brand"><span class="mk" role="img" aria-label="W&amp;K AI"></span><b>W&amp;K AI</b><span class="div">/</span>WENDY STUDIO</div>
-    <div class="status"><i></i>在线接单</div>
+    <div class="top-right">
+      <div class="status"><i></i><span data-i18n="status">在线接单</span></div>
+      <button class="lang" id="langBtn" type="button" aria-label="Switch language / 切换语言"><span class="lang-zh">EN</span><span class="lang-en">中文</span></button>
+    </div>
   </div>
 
   <!-- ================= HERO ================= -->
   <header class="hero">
     <div class="logo-hero" role="img" aria-label="W&amp;K AI 标徽"></div>
-    <div class="eyebrow"><span class="dot"></span><b>AI 接单服务</b><span class="sep">/</span>需求下单台</div>
-    <h1>把需求填进来，<br>我给你一个<em>能落地的报价</em>。</h1>
-    <p class="sub">文字、表格、PPT、情报简报、AI 工作流——你说要什么成品，我这边用 AI 交付。
+    <div class="eyebrow" data-i18n="eyebrow"><span class="dot"></span><b>AI 接单服务</b><span class="sep">/</span>需求下单台</div>
+    <h1 data-i18n="h1">把需求填进来，<br>我给你一个<em>能落地的报价</em>。</h1>
+    <p class="sub" data-i18n="sub">文字、表格、PPT、情报简报、AI 工作流——你说要什么成品，我这边用 AI 交付。
       填完这一页，<b>24 小时内</b>收到方案与报价。</p>
     <div class="hero-note">
-      <span>无需线下到场</span>
-      <span>每天 3 次集中回复</span>
-      <span>交付前先看样</span>
-      <span>报价含改稿轮次</span>
+      <span data-i18n="hn1">无需线下到场</span>
+      <span data-i18n="hn2">每天 3 次集中回复</span>
+      <span data-i18n="hn3">交付前先看样</span>
+      <span data-i18n="hn4">报价含改稿轮次</span>
     </div>
   </header>
 
@@ -534,8 +551,8 @@
     <div class="sec-head">
       <div class="num">01</div>
       <div class="sec-txt">
-        <h2>你要做什么</h2>
-        <span class="hint">可以多选 · 选完自动估算 · 表内为<b>基础版起价</b>（¥ 主价 / A$ 辅价）· 预算有限先从<b>轻量入口</b>挑一个</span>
+        <h2 data-i18n="s1h">你要做什么</h2>
+        <span class="hint" data-i18n="s1hint">可以多选 · 选完自动估算 · 表内为<b>基础版起价</b>（¥ 主价 / A$ 辅价）· 预算有限先从<b>轻量入口</b>挑一个</span>
       </div>
     </div>
     <div class="panel" id="picker"></div>
@@ -547,42 +564,42 @@
     <div class="sec-head">
       <div class="num">02</div>
       <div class="sec-txt">
-        <h2>说说具体要求</h2>
-        <span class="hint">问得越清楚 · 报价越准</span>
+        <h2 data-i18n="s2h">说说具体要求</h2>
+        <span class="hint" data-i18n="s2hint">问得越清楚 · 报价越准</span>
       </div>
     </div>
     <div class="panel">
       <div class="field">
-        <label><span class="q">①</span>要什么成品？ <span class="opt">格式 / 份数 / 字数页数</span></label>
-        <textarea id="f_deliver" placeholder="例：一份 20 页的招商 PPT，中文，要 2 版配色方案"></textarea>
+        <label><span class="q">①</span><span data-i18n="f1l">要什么成品？</span> <span class="opt" data-i18n="f1o">格式 / 份数 / 字数页数</span></label>
+        <textarea id="f_deliver" data-i18n-ph="f1ph" placeholder="例：一份 20 页的招商 PPT，中文，要 2 版配色方案"></textarea>
       </div>
       <div class="field">
-        <label><span class="q">②</span>给谁看、用在什么场景？ <span class="opt">决定了写法</span></label>
-        <input type="text" id="f_scene" placeholder="例：给澳洲本地投资人看的众筹路演">
+        <label><span class="q">②</span><span data-i18n="f2l">给谁看、用在什么场景？</span> <span class="opt" data-i18n="f2o">决定了写法</span></label>
+        <input type="text" id="f_scene" data-i18n-ph="f2ph" placeholder="例：给澳洲本地投资人看的众筹路演">
       </div>
       <div class="grid">
         <div class="field">
-          <label><span class="q">③</span>有素材或参考吗？</label>
-          <input type="text" id="f_ref" placeholder="例：有一份旧版，另附 2 篇喜欢的样例">
+          <label><span class="q">③</span><span data-i18n="f3l">有素材或参考吗？</span></label>
+          <input type="text" id="f_ref" data-i18n-ph="f3ph" placeholder="例：有一份旧版，另附 2 篇喜欢的样例">
         </div>
         <div class="field">
-          <label><span class="q">④</span>什么时候要？</label>
+          <label><span class="q">④</span><span data-i18n="f4l">什么时候要？</span></label>
           <div class="seg" id="f_urgent">
-            <button type="button" data-v="不急（1周内）">不急</button>
-            <button type="button" data-v="正常（3-5天）" class="on" data-def="1">正常</button>
-            <button type="button" data-v="加急（48小时内）">加急</button>
+            <button type="button" data-v="不急（1周内）" data-v-en="Not urgent (within 1 week)" data-i18n="u1">不急</button>
+            <button type="button" data-v="正常（3-5天）" data-v-en="Standard (3–5 days)" class="on" data-def="1" data-i18n="u2">正常</button>
+            <button type="button" data-v="加急（48小时内）" data-v-en="Rush (within 48h)" data-i18n="u3">加急</button>
           </div>
         </div>
         <div class="field">
-          <label><span class="q">⑤</span>预算大概？ <span class="opt">我按预算配方案</span></label>
-          <input type="text" id="f_budget" placeholder="例：¥450–860（≈A$95–180）/ 或说不确定">
+          <label><span class="q">⑤</span><span data-i18n="f5l">预算大概？</span> <span class="opt" data-i18n="f5o">我按预算配方案</span></label>
+          <input type="text" id="f_budget" data-i18n-ph="f5ph" placeholder="例：¥450–860（≈A$95–180）/ 或说不确定">
         </div>
         <div class="field">
-          <label><span class="q">⑥</span>需要几轮修改？</label>
+          <label><span class="q">⑥</span><span data-i18n="f6l">需要几轮修改？</span></label>
           <div class="seg" id="f_rounds">
-            <button type="button" data-v="1轮">1 轮</button>
-            <button type="button" data-v="2轮" class="on" data-def="1">2 轮（标准）</button>
-            <button type="button" data-v="无限">无限（转陪跑）</button>
+            <button type="button" data-v="1轮" data-v-en="1 round" data-i18n="r1">1 轮</button>
+            <button type="button" data-v="2轮" data-v-en="2 rounds" class="on" data-def="1" data-i18n="r2">2 轮（标准）</button>
+            <button type="button" data-v="无限" data-v-en="Unlimited (retainer)" data-i18n="r3">无限（转陪跑）</button>
           </div>
         </div>
       </div>
@@ -594,19 +611,19 @@
     <div class="sec-head">
       <div class="num">03</div>
       <div class="sec-txt">
-        <h2>怎么联系你</h2>
-        <span class="hint">只用于回复这一单</span>
+        <h2 data-i18n="s3h">怎么联系你</h2>
+        <span class="hint" data-i18n="s3hint">只用于回复这一单</span>
       </div>
     </div>
     <div class="panel">
       <div class="grid">
         <div class="field">
-          <label>称呼</label>
-          <input type="text" id="f_name" placeholder="例：Lily">
+          <label data-i18n="f7l">称呼</label>
+          <input type="text" id="f_name" data-i18n-ph="f7ph" placeholder="例：Lily">
         </div>
         <div class="field">
-          <label>联系方式 <span class="opt">微信 / 手机 / 邮箱任一</span></label>
-          <input type="text" id="f_contact" placeholder="例：微信 lily_au">
+          <label><span data-i18n="f8l">联系方式</span> <span class="opt" data-i18n="f8o">微信 / 手机 / 邮箱任一</span></label>
+          <input type="text" id="f_contact" data-i18n-ph="f8ph" placeholder="例：微信 lily_au">
         </div>
       </div>
     </div>
@@ -617,8 +634,8 @@
     <div class="sec-head">
       <div class="num">04</div>
       <div class="sec-txt">
-        <h2>接单前自检</h2>
-        <span class="hint">这几类我确实做不了</span>
+        <h2 data-i18n="s4h">接单前自检</h2>
+        <span class="hint" data-i18n="s4hint">这几类我确实做不了</span>
       </div>
     </div>
     <div class="panel">
@@ -640,34 +657,34 @@
   <!-- ================= CTA ================= -->
   <section>
     <div class="actions">
-      <button class="btn btn-main" id="gen">生成我的询单卡 →</button>
-      <button class="btn btn-ghost" id="reset">清空重填</button>
+      <button class="btn btn-main" id="gen" data-i18n="genBtn">生成我的询单卡 →</button>
+      <button class="btn btn-ghost" id="reset" data-i18n="resetBtn">清空重填</button>
     </div>
     <div id="out">
       <div class="out-card">
         <div class="out-top">
           <span class="dots"><i></i><i></i><i></i></span>
           <span class="out-file">order-card.txt</span>
-          <span class="tag" id="out_tag">等待发送</span>
+          <span class="tag" id="out_tag" data-i18n="waitTag">等待发送</span>
         </div>
         <pre id="out_text"></pre>
         <div class="out-foot">
-          <span class="tip">复制这张卡发到微信，或直接点右边发邮件到 <strong>iept2873@agent.qq.com</strong>（系统会自动分类回复）。</span>
-          <button class="mini primary" id="copy">复制</button>
-          <button class="mini" id="mail">发邮件</button>
+          <span class="tip" data-i18n="tip">复制这张卡发到微信，或直接点右边发邮件到 <strong>iept2873@agent.qq.com</strong>（系统会自动分类回复）。</span>
+          <button class="mini primary" id="copy" data-i18n="copyBtn">复制</button>
+          <button class="mini" id="mail" data-i18n="mailBtn">发邮件</button>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <strong>说明 / NOTES</strong><br>
-    · 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。<br>
-    · <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥150 起就能试一单，满意再升级到正式版，不绑定、不预付。<br>
-    · <strong>澳洲本地客户</strong>（英文服务、以 AUD 结算）另按澳洲本地市场价目，约为上表 A$ 的 2 倍 —— 因为我们交付的是对标澳洲本地市场的中英双语能力。<br>
-    · 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。<br>
-    · 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。<br>
-    · 交付前会先给样稿确认方向；标准含 2 轮修改。<br>
+    <strong data-i18n="fNotes">说明 / NOTES</strong><br>
+    <span data-i18n="ft1">· 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。</span><br>
+    <span data-i18n="ft2">· <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥150 起就能试一单，满意再升级到正式版，不绑定、不预付。</span><br>
+    <span data-i18n="ft3">· <strong>澳洲本地客户</strong>（英文服务、以 AUD 结算）另按澳洲本地市场价目，约为上表 A$ 的 2 倍 —— 因为我们交付的是对标澳洲本地市场的中英双语能力。</span><br>
+    <span data-i18n="ft4">· 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。</span><br>
+    <span data-i18n="ft5">· 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。</span><br>
+    <span data-i18n="ft6">· 交付前会先给样稿确认方向；标准含 2 轮修改。</span><br>
     <span class="sign"><span class="fsig" role="img" aria-label="W&amp;K AI"></span>W&amp;K AI · 温蒂 · 2026 🦞</span>
   </footer>
 </div>
@@ -686,115 +703,245 @@ const AUD_CNY = 4.67;
    定价 v3.1（2026-10-09）：精准修正 A4 ¥450、A6 ¥300、C1 ¥700；新增 L「轻量入口」¥150 起，
    作用是降低首次决策门槛——让客户能从小钱开始试，主价与 F/D 类护城河一律不动 */
 const CATS = [
-  { key:"L", name:"轻量入口 ★ 先试一单", items:[
-    { id:"L1", n:"小红书试写 3 条", d:"体验包 · 满意再续", r:150, a:32 },
-    { id:"L2", n:"简历轻量诊断", d:"结构与措辞 · 1 轮改", r:280, a:60 },
-    { id:"L3", n:"封面图 5 张", d:"出图即用 · 打包价", r:180, a:38 },
-    { id:"L4", n:"表格模板救急", d:"现成模板改到能用", r:180, a:38 },
-    { id:"L5", n:"AI 陪跑 1 小时", d:"一对一跑通一个场景", r:150, a:32 }
+  { key:"L", name:"轻量入口 ★ 先试一单", name2:"Quick Start ★ Try one first", items:[
+    { id:"L1", n:"小红书试写 3 条", n2:"RedNote — 3 sample posts", d:"体验包 · 满意再续", d2:"Trial pack · continue if you like it", r:150, a:32 },
+    { id:"L2", n:"简历轻量诊断", n2:"Résumé quick review", d:"结构与措辞 · 1 轮改", d2:"Structure & wording · 1 revision", r:280, a:60 },
+    { id:"L3", n:"封面图 5 张", n2:"5 cover images", d:"出图即用 · 打包价", d2:"Ready to post · bundle", r:180, a:38 },
+    { id:"L4", n:"表格模板救急", n2:"Spreadsheet template fix", d:"现成模板改到能用", d2:"We adapt a template until it works", r:180, a:38 },
+    { id:"L5", n:"AI 陪跑 1 小时", n2:"1-hour AI coaching", d:"一对一跑通一个场景", d2:"1-on-1 · get one use case working", r:150, a:32 }
   ]},
-  { key:"A", name:"内容写作", items:[
-    { id:"A1", n:"公众号长文", d:"1800–2500 字", r:480, a:105 },
-    { id:"A2", n:"小红书笔记", d:"10 条起 · 每条", r:80, a:18 },
-    { id:"A3", n:"品牌故事", d:"关于我们/品牌叙事", r:650, a:140 },
-    { id:"A4", n:"简历优化 ★", d:"澳洲求职 · 深度定制", r:450, a:95 },
-    { id:"A5", n:"求职信", d:"按 JD 定制", r:280, a:60 },
-    { id:"A6", n:"LinkedIn 优化", d:"主页文案", r:300, a:65 },
-    { id:"A7", n:"留学文书润色", d:"PS / CV", r:580, a:125 },
-    { id:"A8", n:"中英商务翻译", d:"按字数 · 最低价", r:260, a:60 },
-    { id:"A9", n:"演讲稿 / 致辞", d:"含主持稿", r:380, a:80 },
-    { id:"A10", n:"电子书 / 手册", d:"撰写 + 排版", r:1600, a:345 },
-    { id:"A11", n:"商品详情页", d:"含卖点拆解", r:230, a:50 },
-    { id:"A12", n:"邮件营销序列", d:"5–7 封", r:1150, a:245 }
+  { key:"A", name:"内容写作", name2:"Content Writing", items:[
+    { id:"A1", n:"公众号长文", n2:"WeChat article", d:"1800–2500 字", d2:"1,800–2,500 words", r:480, a:105 },
+    { id:"A2", n:"小红书笔记", n2:"RedNote posts", d:"10 条起 · 每条", d2:"From 10 posts · each", r:80, a:18 },
+    { id:"A3", n:"品牌故事", n2:"Brand story", d:"关于我们/品牌叙事", d2:"About us / brand narrative", r:650, a:140 },
+    { id:"A4", n:"简历优化 ★", n2:"Résumé writing ★", d:"澳洲求职 · 深度定制", d2:"Australian job market · tailored", r:450, a:95 },
+    { id:"A5", n:"求职信", n2:"Cover letter", d:"按 JD 定制", d2:"Tailored to the job ad", r:280, a:60 },
+    { id:"A6", n:"LinkedIn 优化", n2:"LinkedIn optimisation", d:"主页文案", d2:"Profile copy", r:300, a:65 },
+    { id:"A7", n:"留学文书润色", n2:"Study-abroad essays", d:"PS / CV", d2:"PS / CV", r:580, a:125 },
+    { id:"A8", n:"中英商务翻译", n2:"CN–EN business translation", d:"按字数 · 最低价", d2:"Per word · lowest tier", r:260, a:60 },
+    { id:"A9", n:"演讲稿 / 致辞", n2:"Speech / remarks", d:"含主持稿", d2:"MC script included", r:380, a:80 },
+    { id:"A10", n:"电子书 / 手册", n2:"eBook / handbook", d:"撰写 + 排版", d2:"Writing + layout", r:1600, a:345 },
+    { id:"A11", n:"商品详情页", n2:"Product page copy", d:"含卖点拆解", d2:"With selling-point breakdown", r:230, a:50 },
+    { id:"A12", n:"邮件营销序列", n2:"Email sequence", d:"5–7 封", d2:"5–7 emails", r:1150, a:245 }
   ]},
-  { key:"B", name:"数据与表格", items:[
-    { id:"B1", n:"Excel 建模", d:"模板/公式定制", r:460, a:100 },
-    { id:"B2", n:"数据清洗整理", d:"脏数据处理", r:390, a:84 },
-    { id:"B3", n:"财务报表整理", d:"整理归档 · 不含税务意见", r:700, a:150 },
-    { id:"B4", n:"可视化仪表盘", d:"单文件 HTML", r:1300, a:280 },
-    { id:"B5", n:"市场调研报告", d:"含信源核实", r:1700, a:365 },
-    { id:"B6", n:"问卷设计+分析", d:"设计到结论", r:950, a:205 },
-    { id:"B7", n:"竞品监测表", d:"价格/销量", r:570, a:122 },
-    { id:"B8", n:"票据归档自动化", d:"文件夹+索引", r:460, a:100 }
+  { key:"B", name:"数据与表格", name2:"Data & Spreadsheets", items:[
+    { id:"B1", n:"Excel 建模", n2:"Excel modelling", d:"模板/公式定制", d2:"Custom templates & formulas", r:460, a:100 },
+    { id:"B2", n:"数据清洗整理", n2:"Data cleaning", d:"脏数据处理", d2:"Messy data, sorted", r:390, a:84 },
+    { id:"B3", n:"财务报表整理", n2:"Financial statements", d:"整理归档 · 不含税务意见", d2:"Organise & file · no tax advice", r:700, a:150 },
+    { id:"B4", n:"可视化仪表盘", n2:"Dashboard (HTML)", d:"单文件 HTML", d2:"Single-file HTML", r:1300, a:280 },
+    { id:"B5", n:"市场调研报告", n2:"Market research report", d:"含信源核实", d2:"Sources verified", r:1700, a:365 },
+    { id:"B6", n:"问卷设计+分析", n2:"Survey design + analysis", d:"设计到结论", d2:"From design to findings", r:950, a:205 },
+    { id:"B7", n:"竞品监测表", n2:"Competitor tracker", d:"价格/销量", d2:"Pricing / sales", r:570, a:122 },
+    { id:"B8", n:"票据归档自动化", n2:"Receipt filing automation", d:"文件夹+索引", d2:"Folders + index", r:460, a:100 }
   ]},
-  { key:"C", name:"演示与视觉", items:[
-    { id:"C1", n:"PPT 全套制作", d:"大纲到成品", r:700, a:150 },
-    { id:"C2", n:"PPT 美化改版", d:"视觉统一", r:420, a:90 },
-    { id:"C3", n:"信息图 / 知识卡片", d:"竖版长图", r:250, a:55 },
-    { id:"C4", n:"海报 / 宣传图", d:"单张", r:190, a:40 },
-    { id:"C5", n:"短视频脚本+分镜", d:"含分镜表", r:450, a:96 },
-    { id:"C6", n:"封面图批量", d:"每张", r:60, a:13 },
-    { id:"C7", n:"产品图精修", d:"去背景 · 每张", r:25, a:5 },
-    { id:"C8", n:"活动物料包", d:"海报+邀请函+易拉宝", r:950, a:205 }
+  { key:"C", name:"演示与视觉", name2:"Slides & Visuals", items:[
+    { id:"C1", n:"PPT 全套制作", n2:"Full slide deck", d:"大纲到成品", d2:"Outline to finished deck", r:700, a:150 },
+    { id:"C2", n:"PPT 美化改版", n2:"Slide redesign", d:"视觉统一", d2:"Unified visuals", r:420, a:90 },
+    { id:"C3", n:"信息图 / 知识卡片", n2:"Infographic / cards", d:"竖版长图", d2:"Vertical long-form", r:250, a:55 },
+    { id:"C4", n:"海报 / 宣传图", n2:"Poster / promo image", d:"单张", d2:"Per image", r:190, a:40 },
+    { id:"C5", n:"短视频脚本+分镜", n2:"Short-video script + storyboard", d:"含分镜表", d2:"Storyboard included", r:450, a:96 },
+    { id:"C6", n:"封面图批量", n2:"Cover images (bulk)", d:"每张", d2:"each", r:60, a:13 },
+    { id:"C7", n:"产品图精修", n2:"Product photo retouch", d:"去背景 · 每张", d2:"Background removal · each", r:25, a:5 },
+    { id:"C8", n:"活动物料包", n2:"Event pack", d:"海报+邀请函+易拉宝", d2:"Poster + invite + banner", r:950, a:205 }
   ]},
-  { key:"D", name:"代码与技术", items:[
-    { id:"D1", n:"落地页 / 官网", d:"链接+源码", r:3300, a:705 },
-    { id:"D2", n:"微信小程序", d:"定制开发", r:10200, a:2180 },
-    { id:"D3", n:"表格自动化脚本", d:"脚本+说明", r:1000, a:215 },
-    { id:"D4", n:"数据抓取整理", d:"公开数据", r:1400, a:300 },
-    { id:"D5", n:"轻量小工具", d:"可运行程序", r:2000, a:430 },
-    { id:"D6", n:"网站维护 / 改 bug", d:"按次", r:580, a:125 }
+  { key:"D", name:"代码与技术", name2:"Code & Tech", items:[
+    { id:"D1", n:"落地页 / 官网", n2:"Landing page / website", d:"链接+源码", d2:"Link + source code", r:3300, a:705 },
+    { id:"D2", n:"微信小程序", n2:"WeChat Mini Program", d:"定制开发", d2:"Custom build", r:10200, a:2180 },
+    { id:"D3", n:"表格自动化脚本", n2:"Spreadsheet automation script", d:"脚本+说明", d2:"Script + docs", r:1000, a:215 },
+    { id:"D4", n:"数据抓取整理", n2:"Web scraping", d:"公开数据", d2:"Public data", r:1400, a:300 },
+    { id:"D5", n:"轻量小工具", n2:"Small web tool", d:"可运行程序", d2:"Working app", r:2000, a:430 },
+    { id:"D6", n:"网站维护 / 改 bug", n2:"Site maintenance / bug fix", d:"按次", d2:"Per job", r:580, a:125 }
   ]},
-  { key:"E", name:"情报与研究 ★ 订阅制", items:[
-    { id:"E1", n:"定制情报简报 ★", d:"每周起 · 订阅", r:150, a:32, u:"/月" },
-    { id:"E2", n:"竞品动态监测", d:"周报+预警 · 订阅", r:300, a:65, u:"/月" },
-    { id:"E3", n:"政策法规追踪", d:"变更提醒 · 订阅", r:190, a:40, u:"/月" },
-    { id:"E4", n:"深度研究报告", d:"一次性 PDF", r:1700, a:365 },
-    { id:"E5", n:"选题/灵感库", d:"每周 · 订阅", r:150, a:32, u:"/月" }
+  { key:"E", name:"情报与研究 ★ 订阅制", name2:"Intelligence & Research ★ Subscription", items:[
+    { id:"E1", n:"定制情报简报 ★", n2:"Custom intelligence brief ★", d:"每周起 · 订阅", d2:"Weekly+ · subscription", r:150, a:32, u:"/月", u2:"/mo" },
+    { id:"E2", n:"竞品动态监测", n2:"Competitor monitoring", d:"周报+预警 · 订阅", d2:"Weekly report + alerts · subscription", r:300, a:65, u:"/月", u2:"/mo" },
+    { id:"E3", n:"政策法规追踪", n2:"Policy & regulation tracker", d:"变更提醒 · 订阅", d2:"Change alerts · subscription", r:190, a:40, u:"/月", u2:"/mo" },
+    { id:"E4", n:"深度研究报告", n2:"In-depth research report", d:"一次性 PDF", d2:"One-off PDF", r:1700, a:365 },
+    { id:"E5", n:"选题/灵感库", n2:"Topic & idea bank", d:"每周 · 订阅", d2:"Weekly · subscription", r:150, a:32, u:"/月", u2:"/mo" }
   ]},
-  { key:"F", name:"AI 落地服务", items:[
-    { id:"F1", n:"AI 工具选型", d:"方案+演示", r:1400, a:300 },
-    { id:"F2", n:"AI 工作流搭建 ★", d:"配置+手册", r:4200, a:900 },
-    { id:"F3", n:"AI 助理定制", d:"配置+培训", r:2800, a:600 },
-    { id:"F5", n:"自媒体自动化流水线", d:"流水线+手册", r:6800, a:1450 },
-    { id:"F6", n:"自动化月度维护", d:"持续运维 · 订阅", r:3400, a:730, u:"/月" }
+  { key:"F", name:"AI 落地服务", name2:"AI Implementation", items:[
+    { id:"F1", n:"AI 工具选型", n2:"AI tool selection", d:"方案+演示", d2:"Plan + demo", r:1400, a:300 },
+    { id:"F2", n:"AI 工作流搭建 ★", n2:"AI workflow build ★", d:"配置+手册", d2:"Setup + manual", r:4200, a:900 },
+    { id:"F3", n:"AI 助理定制", n2:"Custom AI assistant", d:"配置+培训", d2:"Setup + training", r:2800, a:600 },
+    { id:"F5", n:"自媒体自动化流水线", n2:"Social automation pipeline", d:"流水线+手册", d2:"Pipeline + manual", r:6800, a:1450 },
+    { id:"F6", n:"自动化月度维护", n2:"Monthly automation upkeep", d:"持续运维 · 订阅", d2:"Ongoing ops · subscription", r:3400, a:730, u:"/月", u2:"/mo" }
   ]}
 ];
 
 const REDLINES = [
-  { k:["代写","代做","代考","替考","降重","过查重","turnitin","assignment","dissertation","帮我写完这门课"], t:"疑似学术不端（代写/代考）" },
-  { k:["代实名","代注册","借账号","借你的账号","代认证","刷脸","代签名","代收验证码"], t:"疑似身份或账号冒用" },
-  { k:["垫付","代收","代收款","走账","帮忙转一笔","刷单返现","保证金","投资带我","数字货币代买"], t:"疑似资金风险（垫付/代收/刷单）" },
-  { k:["法律意见","审合同","税务筹划","避税","诊断","处方","荐股","荐基","投资建议","报税建议"], t:"疑似需专业资质（法律/税务/医疗/投资意见）" },
-  { k:["盗版","破解","爬付费","扒课","冒充","伪造公章","假合同","复制别人的网站"], t:"疑似侵权或不正当竞争" },
-  { k:["刷评","刷粉","刷销量","假数据","假报表","改成绩单","改流水","p个截图","伪造经历","假证"], t:"疑似虚假或刷量" },
-  { k:["博彩","赌博","成人","违禁","规避监管","材料造假","代签签证"], t:"疑似高风险内容" }
+  { k:["代写","代做","代考","替考","降重","过查重","turnitin","assignment","dissertation","帮我写完这门课"], t:"疑似学术不端（代写/代考）", t2:"Suspected academic misconduct (ghostwriting / exam cheating)" },
+  { k:["代实名","代注册","借账号","借你的账号","代认证","刷脸","代签名","代收验证码"], t:"疑似身份或账号冒用", t2:"Suspected identity or account misuse" },
+  { k:["垫付","代收","代收款","走账","帮忙转一笔","刷单返现","保证金","投资带我","数字货币代买"], t:"疑似资金风险（垫付/代收/刷单）", t2:"Suspected financial risk (advance payment / money handling / fake orders)" },
+  { k:["法律意见","审合同","税务筹划","避税","诊断","处方","荐股","荐基","投资建议","报税建议"], t:"疑似需专业资质（法律/税务/医疗/投资意见）", t2:"Likely needs a licensed professional (legal / tax / medical / investment advice)" },
+  { k:["盗版","破解","爬付费","扒课","冒充","伪造公章","假合同","复制别人的网站"], t:"疑似侵权或不正当竞争", t2:"Suspected infringement or unfair competition" },
+  { k:["刷评","刷粉","刷销量","假数据","假报表","改成绩单","改流水","p个截图","伪造经历","假证"], t:"疑似虚假或刷量", t2:"Suspected falsified content or fake engagement" },
+  { k:["博彩","赌博","成人","违禁","规避监管","材料造假","代签签证"], t:"疑似高风险内容", t2:"Suspected high-risk content" }
 ];
+
+/* ========== 双语字典（zh / en） ========== */
+const I18N = {
+  zh: {
+    status:"在线接单",
+    eyebrow:'<span class="dot"></span><b>AI 接单服务</b><span class="sep">/</span>需求下单台',
+    h1:'把需求填进来，<br>我给你一个<em>能落地的报价</em>。',
+    sub:'文字、表格、PPT、情报简报、AI 工作流——你说要什么成品，我这边用 AI 交付。填完这一页，<b>24 小时内</b>收到方案与报价。',
+    hn1:'无需线下到场', hn2:'每天 3 次集中回复', hn3:'交付前先看样', hn4:'报价含改稿轮次',
+    s1h:'你要做什么',
+    s1hint:'可以多选 · 选完自动估算 · 表内为<b>基础版起价</b>（¥ 主价 / A$ 辅价）· 预算有限先从<b>轻量入口</b>挑一个',
+    s2h:'说说具体要求', s2hint:'问得越清楚 · 报价越准',
+    f1l:'要什么成品？', f1o:'格式 / 份数 / 字数页数',
+    f1ph:'例：一份 20 页的招商 PPT，中文，要 2 版配色方案',
+    f2l:'给谁看、用在什么场景？', f2o:'决定了写法',
+    f2ph:'例：给澳洲本地投资人看的众筹路演',
+    f3l:'有素材或参考吗？', f3ph:'例：有一份旧版，另附 2 篇喜欢的样例',
+    f4l:'什么时候要？', u1:'不急', u2:'正常', u3:'加急',
+    f5l:'预算大概？', f5o:'我按预算配方案', f5ph:'例：¥450–860（≈A$95–180）/ 或说不确定',
+    f6l:'需要几轮修改？', r1:'1 轮', r2:'2 轮（标准）', r3:'无限（转陪跑）',
+    s3h:'怎么联系你', s3hint:'只用于回复这一单',
+    f7l:'称呼', f7ph:'例：Lily',
+    f8l:'联系方式', f8o:'微信 / 手机 / 邮箱任一', f8ph:'例：微信 lily_au',
+    s4h:'接单前自检', s4hint:'这几类我确实做不了',
+    genBtn:'生成我的询单卡 →', resetBtn:'清空重填',
+    waitTag:'等待发送', tagWarn:'含待确认项',
+    tip:'复制这张卡发到微信，或直接点右边发邮件到 <strong>iept2873@agent.qq.com</strong>（系统会自动分类回复）。',
+    copyBtn:'复制', mailBtn:'发邮件',
+    fNotes:'说明 / NOTES',
+    ft1:'· 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。',
+    ft2:'· <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥150 起就能试一单，满意再升级到正式版，不绑定、不预付。',
+    ft3:'· <strong>澳洲本地客户</strong>（英文服务、以 AUD 结算）另按澳洲本地市场价目，约为上表 A$ 的 2 倍 —— 因为我们交付的是对标澳洲本地市场的中英双语能力。',
+    ft4:'· 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。',
+    ft5:'· 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。',
+    ft6:'· 交付前会先给样稿确认方向；标准含 2 轮修改。',
+    tallyEmpty:'还没选服务——先点上面的卡片 🦞',
+    phEmpty:'（未填）',
+    toastPick:'先选一个服务吧 🦞',
+    toastCopied:'已复制，粘贴到微信即可',
+    toastCopied2:'已复制',
+    cardTitle:'询 单 卡',
+    cardDate:'日期', cardClient:'【客户】', cardName:'称呼', cardContact:'联系',
+    cardSvc:'【服务选择】', cardDetail:'【需求详情】',
+    cardD1:'① 要什么成品', cardD2:'② 给谁看/场景', cardD3:'③ 素材或参考',
+    cardD4:'④ 交期', cardD5:'⑤ 预算', cardD6:'⑥ 修改轮次',
+    cardRange:'【基准价区间（参考）】',
+    cardMain:'（主价）', cardReal:'（实收）', cardRate:'汇率', cardTiers:'（专业版 ×1.4 / 尊享版 ×1.9）',
+    cardCheck:'【红线自检】', cardWarn:'⚠️ 含待确认内容：', cardOK:'✅ 无问题',
+    cardConfirm:'客户确认', cardYes:'已确认', cardNo:'未勾选',
+    cardFoot1:'（此卡为需求提交，非最终报价；', cardFoot2:'最终以书面报价单为准）',
+    mailPrefix:'询单：', mailNew:'新客户'
+  },
+  en: {
+    status:"Taking orders",
+    eyebrow:'<span class="dot"></span><b>AI ORDER DESK</b><span class="sep">/</span>Get a quote',
+    h1:'Tell me what you need,<br>I\'ll send a <em>quote that works</em>.',
+    sub:'Copy, spreadsheets, slides, intel briefs, AI workflows — name the deliverable and I\'ll produce it with AI. Fill in this page and you\'ll get a plan and quote <b>within 24 hours</b>.',
+    hn1:'No meeting needed', hn2:'3 reply windows daily', hn3:'See a sample first', hn4:'Revisions included',
+    s1h:'What do you need',
+    s1hint:'Multi-select · auto estimate · <b>entry prices</b> shown (¥ main / A$ secondary) · on a budget? start from <b>Quick Start</b>',
+    s2h:'Tell me the details', s2hint:'The clearer, the more accurate the quote',
+    f1l:'What deliverable?', f1o:'format / quantity / length',
+    f1ph:'e.g. a 20-page investor deck, in English, 2 colour options',
+    f2l:'Who is it for, and where will it be used?', f2o:'this shapes the writing',
+    f2ph:'e.g. a crowdfunding pitch for local Australian investors',
+    f3l:'Any material or reference?', f3ph:'e.g. an older version plus 2 samples I like',
+    f4l:'When do you need it?', u1:'Not urgent', u2:'Standard', u3:'Rush',
+    f5l:'Rough budget?', f5o:'I\'ll match a plan to it', f5ph:'e.g. ¥450–860 (≈A$95–180) / or not sure',
+    f6l:'How many revision rounds?', r1:'1 round', r2:'2 rounds (standard)', r3:'Unlimited (retainer)',
+    s3h:'How to reach you', s3hint:'Used only to reply to this order',
+    f7l:'Your name', f7ph:'e.g. Lily',
+    f8l:'Contact', f8o:'WeChat / phone / email', f8ph:'e.g. WeChat lily_au',
+    s4h:'Before we start', s4hint:'A few things I really can\'t take on',
+    genBtn:'Generate my order card →', resetBtn:'Clear &amp; restart',
+    waitTag:'Waiting to send', tagWarn:'Needs review',
+    tip:'Copy this card into WeChat, or click to email it to <strong>iept2873@agent.qq.com</strong> (auto-classified and replied).',
+    copyBtn:'Copy', mailBtn:'Email',
+    fNotes:'NOTES / 说明',
+    ft1:'· Prices shown are <strong>entry-level</strong>: <strong>CNY (¥) is the main price</strong>; AUD (A$, + GST) is the currency actually charged, converted at <strong>1 AUD ≈ 4.67 CNY</strong> (2026-10-09). Pro ×1.4, Premium ×1.9 — the final written quote prevails.',
+    ft2:'· <strong>On a budget?</strong> Start from <strong>Quick Start</strong> at the very top — try one job from ¥150, then upgrade. No lock-in, no prepayment.',
+    ft3:'· <strong>Local Australian clients</strong> (English delivery, billed in AUD) are quoted at the local market rate, about 2× the A$ column — because what we deliver is bilingual capability benchmarked to the Australian market.',
+    ft4:'· Form content stays in your own browser and is never uploaded automatically — you copy and send it yourself.',
+    ft5:'· Orders are processed in 3 daily batches (<strong>8:00 / 12:30 / 20:00</strong>), with a plan and quote <strong>within 24 hours</strong>.',
+    ft6:'· You\'ll see a sample to confirm direction before delivery; 2 revision rounds included as standard.',
+    tallyEmpty:'Nothing selected yet — tap a card above 🦞',
+    phEmpty:'(not filled)',
+    toastPick:'Pick a service first 🦞',
+    toastCopied:'Copied — paste it into WeChat',
+    toastCopied2:'Copied',
+    cardTitle:'O R D E R   C A R D',
+    cardDate:'Date', cardClient:'[Client]', cardName:'Name', cardContact:'Contact',
+    cardSvc:'[Services]', cardDetail:'[Details]',
+    cardD1:'① Deliverable', cardD2:'② Audience / use', cardD3:'③ Material / reference',
+    cardD4:'④ Deadline', cardD5:'⑤ Budget', cardD6:'⑥ Revisions',
+    cardRange:'[Indicative range (reference)]',
+    cardMain:'(main)', cardReal:'', cardRate:'Rate', cardTiers:'(Pro ×1.4 / Premium ×1.9)',
+    cardCheck:'[Compliance check]', cardWarn:'⚠️ Needs review: ', cardOK:'✅ Clear',
+    cardConfirm:'Client confirmation', cardYes:'Confirmed', cardNo:'Not ticked',
+    cardFoot1:'(This card is a request, not a final quote;', cardFoot2:'the written quote prevails.)',
+    mailPrefix:'Order: ', mailNew:'New client'
+  }
+};
+
+/* ========== 语言切换 ========== */
+let LANG='zh';
+try{ LANG = (localStorage.getItem('wk_lang')==='en') ? 'en' : 'zh'; }catch(e){}
+function t(k){ const d=I18N[LANG]||I18N.zh; return (k in d) ? d[k] : (I18N.zh[k] || ''); }
+
+function applyLang(){
+  document.documentElement.lang = (LANG==='zh') ? 'zh-CN' : 'en';
+  document.body.classList.toggle('lang-en', LANG==='en');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{ el.placeholder = t(el.dataset.i18nPh); });
+  renderPicker();
+  updateTally();
+  checkRedline();
+  const outEl=document.getElementById('out');
+  if(outEl && outEl.style.display==='block'){ generateCard(true); }
+}
+document.getElementById('langBtn').addEventListener('click',()=>{
+  LANG = (LANG==='zh') ? 'en' : 'zh';
+  try{ localStorage.setItem('wk_lang', LANG); }catch(e){}
+  applyLang();
+});
 
 /* ========== 构建选择器 ========== */
 const picker = document.getElementById('picker');
 const picked = new Set();
-CATS.forEach(cat=>{
-  const box = document.createElement('div');
-  box.className='cat';
-  box.innerHTML = `<div class="cat-title">${cat.name}</div>`;
-  const chips = document.createElement('div');
-  chips.className='chips';
-  cat.items.forEach(it=>{
-    const b=document.createElement('button');
-    b.type='button'; b.className='chip'; b.dataset.id=it.id;
-    const unit = it.u || '';
-    const cn = `¥${it.r} 起${unit}`;
-    const au = `A$${it.a} 起${unit}`;
-    b.innerHTML = `${it.n}<span class="p">${it.d}<b>${cn}<i> · ${au}</i></b></span>`;
-    b.addEventListener('click',()=>{
-      if(picked.has(it.id)){ picked.delete(it.id); b.classList.remove('on'); }
-      else { picked.add(it.id); b.classList.add('on'); }
-      updateTally();
+function renderPicker(){
+  picker.innerHTML='';
+  CATS.forEach(cat=>{
+    const box = document.createElement('div');
+    box.className='cat';
+    box.innerHTML = `<div class="cat-title">${LANG==='en'?cat.name2:cat.name}</div>`;
+    const chips = document.createElement('div');
+    chips.className='chips';
+    cat.items.forEach(it=>{
+      const b=document.createElement('button');
+      b.type='button'; b.className='chip'; b.dataset.id=it.id;
+      const unit = LANG==='en' ? (it.u2||'') : (it.u||'');
+      const cn = (LANG==='en') ? `from ¥${it.r}${unit}` : `¥${it.r} 起${unit}`;
+      const au = (LANG==='en') ? `A$${it.a}${unit}` : `A$${it.a} 起${unit}`;
+      const nm = (LANG==='en') ? it.n2 : it.n;
+      const ds = (LANG==='en') ? it.d2 : it.d;
+      b.innerHTML = `${nm}<span class="p">${ds}<b>${cn}<i> · ${au}</i></b></span>`;
+      if(picked.has(it.id)) b.classList.add('on');
+      b.addEventListener('click',()=>{
+        if(picked.has(it.id)){ picked.delete(it.id); b.classList.remove('on'); }
+        else { picked.add(it.id); b.classList.add('on'); }
+        updateTally();
+      });
+      chips.appendChild(b);
     });
-    chips.appendChild(b);
+    box.appendChild(chips);
+    picker.appendChild(box);
   });
-  box.appendChild(chips);
-  picker.appendChild(box);
-});
+}
 
 function getItem(id){
   for(const c of CATS) for(const it of c.items) if(it.id===id) return {...it, cat:c};
   return null;
 }
 function updateTally(){
-  const t=document.getElementById('tally');
-  if(picked.size===0){ t.innerHTML='<span class="empty">还没选服务——先点上面的卡片 🦞</span>'; return; }
+  const el=document.getElementById('tally');
+  if(picked.size===0){ el.innerHTML=`<span class="empty">${t('tallyEmpty')}</span>`; return; }
   let lowR=0, lowA=0, subs=0;
   picked.forEach(id=>{
     const it=getItem(id);
@@ -803,10 +950,17 @@ function updateTally(){
   });
   const lowerR = Math.round(lowR),  upperR = Math.round(lowR*1.9);
   const lowerA = Math.round(lowA),  upperA = Math.round(lowA*1.9);
-  let html = `<span>已选 <strong>${picked.size}</strong> 项`;
-  if(subs) html += `（含 ${subs} 项订阅/运维）`;
-  html += ` · 基础版 → 尊享版</span><span class="amt">¥${lowerR} – ${upperR} <i>| A$${lowerA} – ${upperA}</i></span>`;
-  t.innerHTML = html;
+  let html;
+  if(LANG==='en'){
+    html = `<span><strong>${picked.size}</strong> selected`;
+    if(subs) html += ` (incl. ${subs} subscription/retainer)`;
+    html += ` · basic → premium</span><span class="amt">¥${lowerR} – ${upperR} <i>| A$${lowerA} – ${upperA}</i></span>`;
+  } else {
+    html = `<span>已选 <strong>${picked.size}</strong> 项`;
+    if(subs) html += `（含 ${subs} 项订阅/运维）`;
+    html += ` · 基础版 → 尊享版</span><span class="amt">¥${lowerR} – ${upperR} <i>| A$${lowerA} – ${upperA}</i></span>`;
+  }
+  el.innerHTML = html;
 }
 
 /* ========== 分段选择 ========== */
@@ -820,7 +974,7 @@ document.querySelectorAll('.seg').forEach(seg=>{
 });
 function segVal(id){
   const on=document.querySelector('#'+id+' button.on');
-  return on?on.dataset.v:'';
+  return on ? ((LANG==='en' && on.dataset.vEn) ? on.dataset.vEn : on.dataset.v) : '';
 }
 
 /* ========== 红线实时检测 ========== */
@@ -833,16 +987,27 @@ watchIds.forEach(id=>{
 function checkRedline(){
   const text = watchIds.map(id=>document.getElementById(id).value).join(' ').toLowerCase();
   const hits = [];
-  REDLINES.forEach(r=>{ if(r.k.some(k=>text.includes(k))) hits.push(r.t); });
+  REDLINES.forEach(r=>{ if(r.k.some(k=>text.includes(k))) hits.push(LANG==='en'?r.t2:r.t); });
   if(hits.length===0){
     redlineBox.className='redline';
-    redlineBox.innerHTML = `<b>✅ 目前没有检测到问题。</b><br>
+    redlineBox.innerHTML = (LANG==='en')
+      ? `<b>✅ No issues detected.</b><br>
+      I don't take on the following — if your request touches any of them, please don't submit:
+      ghostwriting / exam cheating, identity or account misuse, advance payment or money handling,
+      legal / tax / medical / investment advice, piracy or cracking, fake reviews or forged documents,
+      and anything illegal.${confirmHTML()}`
+      : `<b>✅ 目前没有检测到问题。</b><br>
       下列需求我一律不接，如果沾到其中任何一条，建议不要提交：代写论文/代考、
       代实名/借账号、要求垫付或代收款、出具法律/税务/医疗/投资意见、
       盗版破解、刷单刷评与伪造材料、以及违法违规内容。${confirmHTML()}`;
   } else {
     redlineBox.className='redline bad';
-    redlineBox.innerHTML = `<b>🛑 检测到可能需要人工确认的内容：</b>
+    redlineBox.innerHTML = (LANG==='en')
+      ? `<b>🛑 This may need a human check:</b>
+      <ul>${hits.map(h=>`<li>${h}</li>`).join('')}</ul>
+      <div style="margin-top:7px">I probably can't take a request like this. If it's a false alarm
+      (e.g. you simply want to "organise" related material), explain the purpose clearly and I'll review it personally.</div>${confirmHTML()}`
+      : `<b>🛑 检测到可能需要人工确认的内容：</b>
       <ul>${hits.map(h=>`<li>${h}</li>`).join('')}</ul>
       <div style="margin-top:7px">这类需求大概率我接不了；如果是误判（例如你只是想"整理"相关材料），
       请把用途写清楚，我会人工判断。</div>${confirmHTML()}`;
@@ -850,10 +1015,13 @@ function checkRedline(){
   rebindConfirm();
 }
 function confirmHTML(){
+  const txt = (LANG==='en')
+    ? `I confirm this request does <strong>not</strong> involve any of the above, and all materials are from legitimate sources.`
+    : `我确认：本次需求<strong>不涉及</strong>上述任何一类，且所提供素材为合法来源。`;
   return `<div style="margin-top:12px">
     <label style="font-weight:400;font-size:13px;display:flex;gap:9px;align-items:flex-start;cursor:pointer">
       <input type="checkbox" id="f_confirm" style="width:17px;height:17px;margin-top:3px;accent-color:var(--cyan);flex:0 0 17px">
-      <span>我确认：本次需求<strong>不涉及</strong>上述任何一类，且所提供素材为合法来源。</span>
+      <span>${txt}</span>
     </label></div>`;
 }
 function rebindConfirm(){
@@ -868,78 +1036,116 @@ function rebindConfirmInitial(){
 }
 
 /* ========== 生成询单卡 ========== */
-document.getElementById('gen').addEventListener('click',()=>{
-  if(picked.size===0){ toast('先选一个服务吧 🦞'); return; }
-  const name = document.getElementById('f_name').value.trim() || '（未填）';
-  const contact = document.getElementById('f_contact').value.trim() || '（未填）';
-  const list = [...picked].map(id=>{ const it=getItem(id); return `  · ${it.id} ${it.n}（${it.d}）`; }).join('\n');
+function generateCard(noScroll){
+  if(picked.size===0){ toast(t('toastPick')); return; }
+  const name = document.getElementById('f_name').value.trim() || t('phEmpty');
+  const contact = document.getElementById('f_contact').value.trim() || t('phEmpty');
+  const list = [...picked].map(id=>{ const it=getItem(id); return (LANG==='en')
+      ? `  · ${it.id} ${it.n2} (${it.d2})`
+      : `  · ${it.id} ${it.n}（${it.d}）`; }).join('\n');
 
   let lowR=0, lowA=0;
   picked.forEach(id=>{ const it=getItem(id); lowR+=it.r; lowA+=it.a; });
   const lowerR=Math.round(lowR), upperR=Math.round(lowR*1.9);
   const lowerA=Math.round(lowA), upperA=Math.round(lowA*1.9);
+  const h=hitsNow();
 
-  const txt =
-`━━━━━━━━━━━━━━━━━━━━━━
-      询 单 卡
+  const txt = (LANG==='en')
+? `━━━━━━━━━━━━━━━━━━━━━━
+       O R D E R   C A R D
 ━━━━━━━━━━━━━━━━━━━━━━
-日期：${new Date().toLocaleDateString('zh-CN')}
+${t('cardDate')}: ${new Date().toLocaleDateString('en-AU')}
 
-【客户】
-称呼：${name}
-联系：${contact}
+${t('cardClient')}
+${t('cardName')}: ${name}
+${t('cardContact')}: ${contact}
 
-【服务选择】
+${t('cardSvc')}
 ${list}
 
-【需求详情】
-① 要什么成品：${v('f_deliver')}
-② 给谁看/场景：${v('f_scene')}
-③ 素材或参考：${v('f_ref')}
-④ 交期：${segVal('f_urgent')}
-⑤ 预算：${v('f_budget')}
-⑥ 修改轮次：${segVal('f_rounds')}
+${t('cardDetail')}
+${t('cardD1')}: ${v('f_deliver')}
+${t('cardD2')}: ${v('f_scene')}
+${t('cardD3')}: ${v('f_ref')}
+${t('cardD4')}: ${segVal('f_urgent')}
+${t('cardD5')}: ${v('f_budget')}
+${t('cardD6')}: ${segVal('f_rounds')}
 
-【基准价区间（参考）】
-RMB ¥${lowerR} – ${upperR}（主价）
-AUD A$${lowerA} – ${upperA} + GST（实收）
-汇率 1 AUD ≈ ${AUD_CNY} CNY
-（专业版 ×1.4 / 尊享版 ×1.9）
+${t('cardRange')}
+CNY ¥${lowerR} – ${upperR}  ${t('cardMain')}
+AUD A$${lowerA} – ${upperA} + GST${t('cardReal')}
+${t('cardRate')} 1 AUD ≈ ${AUD_CNY} CNY
+${t('cardTiers')}
 
-【红线自检】
-${hitsNow().length ? '⚠️ 含待确认内容：'+hitsNow().join('、') : '✅ 无问题'}
-客户确认：${confirmChecked?'已确认':'未勾选'}
+${t('cardCheck')}
+${h.length ? t('cardWarn')+h.join(', ') : t('cardOK')}
+${t('cardConfirm')}: ${confirmChecked?t('cardYes'):t('cardNo')}
 
 ━━━━━━━━━━━━━━━━━━━━━━
-（此卡为需求提交，非最终报价；
-最终以书面报价单为准）
+${t('cardFoot1')}
+${t('cardFoot2')}
+━━━━━━━━━━━━━━━━━━━━━━`
+: `━━━━━━━━━━━━━━━━━━━━━━
+      询 单 卡
+━━━━━━━━━━━━━━━━━━━━━━
+${t('cardDate')}：${new Date().toLocaleDateString('zh-CN')}
+
+${t('cardClient')}
+${t('cardName')}：${name}
+${t('cardContact')}：${contact}
+
+${t('cardSvc')}
+${list}
+
+${t('cardDetail')}
+${t('cardD1')}：${v('f_deliver')}
+${t('cardD2')}：${v('f_scene')}
+${t('cardD3')}：${v('f_ref')}
+${t('cardD4')}：${segVal('f_urgent')}
+${t('cardD5')}：${v('f_budget')}
+${t('cardD6')}：${segVal('f_rounds')}
+
+${t('cardRange')}
+RMB ¥${lowerR} – ${upperR}${t('cardMain')}
+AUD A$${lowerA} – ${upperA} + GST${t('cardReal')}
+${t('cardRate')} 1 AUD ≈ ${AUD_CNY} CNY
+${t('cardTiers')}
+
+${t('cardCheck')}
+${h.length ? t('cardWarn')+h.join('、') : t('cardOK')}
+${t('cardConfirm')}：${confirmChecked?t('cardYes'):t('cardNo')}
+
+━━━━━━━━━━━━━━━━━━━━━━
+${t('cardFoot1')}
+${t('cardFoot2')}
 ━━━━━━━━━━━━━━━━━━━━━━`;
 
   document.getElementById('out_text').textContent = txt;
   document.getElementById('out').style.display='block';
-  document.getElementById('out_tag').textContent = hitsNow().length ? '含待确认项' : '等待发送';
-  document.getElementById('out').scrollIntoView({behavior:'smooth',block:'nearest'});
-});
-function v(id){ const e=document.getElementById(id); return e.value.trim()||'（未填）'; }
+  document.getElementById('out_tag').textContent = h.length ? t('tagWarn') : t('waitTag');
+  if(!noScroll) document.getElementById('out').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.getElementById('gen').addEventListener('click',()=>generateCard(false));
+function v(id){ const e=document.getElementById(id); return e.value.trim()||t('phEmpty'); }
 function hitsNow(){
   const text = watchIds.map(id=>document.getElementById(id).value).join(' ').toLowerCase();
-  const h=[]; REDLINES.forEach(r=>{ if(r.k.some(k=>text.includes(k))) h.push(r.t); }); return h;
+  const h=[]; REDLINES.forEach(r=>{ if(r.k.some(k=>text.includes(k))) h.push(LANG==='en'?r.t2:r.t); }); return h;
 }
 
 /* ========== 复制 / 邮件 ========== */
 document.getElementById('copy').addEventListener('click',async()=>{
-  const t=document.getElementById('out_text').textContent;
-  try{ await navigator.clipboard.writeText(t); toast('已复制，粘贴到微信即可'); }
+  const card=document.getElementById('out_text').textContent;
+  try{ await navigator.clipboard.writeText(card); toast(t('toastCopied')); }
   catch(e){
     const r=document.createRange(); r.selectNodeContents(document.getElementById('out_text'));
     const s=getSelection(); s.removeAllRanges(); s.addRange(r);
-    document.execCommand('copy'); toast('已复制');
+    document.execCommand('copy'); toast(t('toastCopied2'));
   }
 });
 document.getElementById('mail').addEventListener('click',()=>{
-  const t=document.getElementById('out_text').textContent;
-  const subj=encodeURIComponent('询单：'+(document.getElementById('f_name').value.trim()||'新客户'));
-  location.href=`mailto:iept2873@agent.qq.com?subject=${subj}&body=${encodeURIComponent(t)}`;
+  const card=document.getElementById('out_text').textContent;
+  const subj=encodeURIComponent(t('mailPrefix')+(document.getElementById('f_name').value.trim()||t('mailNew')));
+  location.href=`mailto:iept2873@agent.qq.com?subject=${subj}&body=${encodeURIComponent(card)}`;
 });
 
 /* ========== 重置 ========== */
@@ -965,7 +1171,7 @@ function toast(msg){
 }
 
 /* init */
-updateTally();
+applyLang();
 </script>
 </body>
 </html>
