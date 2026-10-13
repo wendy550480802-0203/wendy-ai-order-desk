@@ -680,7 +680,7 @@
   <footer>
     <strong data-i18n="fNotes">说明 / NOTES</strong><br>
     <span data-i18n="ft1">· 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。</span><br>
-    <span data-i18n="ft2">· <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥150 起就能试一单，满意再升级到正式版，不绑定、不预付。</span><br>
+    <span data-i18n="ft2">· <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥100 起就能试一单，满意再升级到正式版，不绑定、不预付。</span><br>
     <span data-i18n="ft3">· <strong>澳洲本地客户</strong>（英文服务、以 AUD 结算）另按澳洲本地市场价目，约为上表 A$ 的 2 倍 —— 因为我们交付的是对标澳洲本地市场的中英双语能力。</span><br>
     <span data-i18n="ft4">· 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。</span><br>
     <span data-i18n="ft5">· 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。</span><br>
@@ -697,67 +697,69 @@
    注：定价 v3.0 起（v3.1 沿用），¥ 与 A$ 均按各自市场独立定价（非实时换算），此处汇率仅作说明 */
 const AUD_CNY = 4.67;
 
-/* ========== 服务数据（价格 = 基础版起价，来自定价 v3.1） ==========
+/* ========== 服务数据（价格 = 基础版起价，来自定价 v3.2） ==========
    r = 人民币（主价）  a = 澳元（实收辅价，+GST）  u = 计价单位后缀
    定价 v3.0（2026-10-09）：内容 A −31% / 数据 B −18% / 视觉 C −40% / 技术 D −12% / AI 落地 F 不动
-   定价 v3.1（2026-10-09）：精准修正 A4 ¥450、A6 ¥300、C1 ¥700；新增 L「轻量入口」¥150 起，
-   作用是降低首次决策门槛——让客户能从小钱开始试，主价与 F/D 类护城河一律不动 */
+   定价 v3.1（2026-10-09）：精准修正 A4 ¥450、A6 ¥300、C1 ¥700；新增 L「轻量入口」¥150 起
+   定价 v3.2（2026-10-14）：按同行一手反馈（自媒体：小红书 ¥50 / 公众号 ¥100–300）重定 —
+     自媒体 A1/A2/A3/A11/A12 严格对标；写作组 A8/A9/A10 联动；L 类门槛下移；
+     B −20% / C −25% / D −10% / E −15%；**A4–A7 澳洲求职组与 F 类 AI 落地保持不动** */
 const CATS = [
   { key:"L", name:"轻量入口 ★ 先试一单", name2:"Quick Start ★ Try one first", items:[
-    { id:"L1", n:"小红书试写 3 条", n2:"RedNote — 3 sample posts", d:"体验包 · 满意再续", d2:"Trial pack · continue if you like it", r:150, a:32 },
-    { id:"L2", n:"简历轻量诊断", n2:"Résumé quick review", d:"结构与措辞 · 1 轮改", d2:"Structure & wording · 1 revision", r:280, a:60 },
-    { id:"L3", n:"封面图 5 张", n2:"5 cover images", d:"出图即用 · 打包价", d2:"Ready to post · bundle", r:180, a:38 },
-    { id:"L4", n:"表格模板救急", n2:"Spreadsheet template fix", d:"现成模板改到能用", d2:"We adapt a template until it works", r:180, a:38 },
-    { id:"L5", n:"AI 陪跑 1 小时", n2:"1-hour AI coaching", d:"一对一跑通一个场景", d2:"1-on-1 · get one use case working", r:150, a:32 }
+    { id:"L1", n:"小红书试写 3 条", n2:"RedNote — 3 sample posts", d:"体验包 · 满意再续", d2:"Trial pack · continue if you like it", r:100, a:22 },
+    { id:"L2", n:"简历轻量诊断", n2:"Résumé quick review", d:"结构与措辞 · 1 轮改", d2:"Structure & wording · 1 revision", r:200, a:43 },
+    { id:"L3", n:"封面图 5 张", n2:"5 cover images", d:"出图即用 · 打包价", d2:"Ready to post · bundle", r:120, a:26 },
+    { id:"L4", n:"表格模板救急", n2:"Spreadsheet template fix", d:"现成模板改到能用", d2:"We adapt a template until it works", r:140, a:30 },
+    { id:"L5", n:"AI 陪跑 1 小时", n2:"1-hour AI coaching", d:"一对一跑通一个场景", d2:"1-on-1 · get one use case working", r:100, a:22 }
   ]},
   { key:"A", name:"内容写作", name2:"Content Writing", items:[
-    { id:"A1", n:"公众号长文", n2:"WeChat article", d:"1800–2500 字", d2:"1,800–2,500 words", r:480, a:105 },
-    { id:"A2", n:"小红书笔记", n2:"RedNote posts", d:"10 条起 · 每条", d2:"From 10 posts · each", r:80, a:18 },
-    { id:"A3", n:"品牌故事", n2:"Brand story", d:"关于我们/品牌叙事", d2:"About us / brand narrative", r:650, a:140 },
+    { id:"A1", n:"公众号长文", n2:"WeChat article", d:"1800–2500 字", d2:"1,800–2,500 words", r:200, a:43 },
+    { id:"A2", n:"小红书笔记", n2:"RedNote posts", d:"10 条起 · 每条", d2:"From 10 posts · each", r:50, a:11 },
+    { id:"A3", n:"品牌故事", n2:"Brand story", d:"关于我们/品牌叙事", d2:"About us / brand narrative", r:300, a:64 },
     { id:"A4", n:"简历优化 ★", n2:"Résumé writing ★", d:"澳洲求职 · 深度定制", d2:"Australian job market · tailored", r:450, a:95 },
     { id:"A5", n:"求职信", n2:"Cover letter", d:"按 JD 定制", d2:"Tailored to the job ad", r:280, a:60 },
     { id:"A6", n:"LinkedIn 优化", n2:"LinkedIn optimisation", d:"主页文案", d2:"Profile copy", r:300, a:65 },
     { id:"A7", n:"留学文书润色", n2:"Study-abroad essays", d:"PS / CV", d2:"PS / CV", r:580, a:125 },
-    { id:"A8", n:"中英商务翻译", n2:"CN–EN business translation", d:"按字数 · 最低价", d2:"Per word · lowest tier", r:260, a:60 },
-    { id:"A9", n:"演讲稿 / 致辞", n2:"Speech / remarks", d:"含主持稿", d2:"MC script included", r:380, a:80 },
-    { id:"A10", n:"电子书 / 手册", n2:"eBook / handbook", d:"撰写 + 排版", d2:"Writing + layout", r:1600, a:345 },
-    { id:"A11", n:"商品详情页", n2:"Product page copy", d:"含卖点拆解", d2:"With selling-point breakdown", r:230, a:50 },
-    { id:"A12", n:"邮件营销序列", n2:"Email sequence", d:"5–7 封", d2:"5–7 emails", r:1150, a:245 }
+    { id:"A8", n:"中英商务翻译", n2:"CN–EN business translation", d:"按字数 · 最低价", d2:"Per word · lowest tier", r:200, a:43 },
+    { id:"A9", n:"演讲稿 / 致辞", n2:"Speech / remarks", d:"含主持稿", d2:"MC script included", r:250, a:54 },
+    { id:"A10", n:"电子书 / 手册", n2:"eBook / handbook", d:"撰写 + 排版", d2:"Writing + layout", r:1200, a:257 },
+    { id:"A11", n:"商品详情页", n2:"Product page copy", d:"含卖点拆解", d2:"With selling-point breakdown", r:120, a:26 },
+    { id:"A12", n:"邮件营销序列", n2:"Email sequence", d:"5–7 封", d2:"5–7 emails", r:500, a:107 }
   ]},
   { key:"B", name:"数据与表格", name2:"Data & Spreadsheets", items:[
-    { id:"B1", n:"Excel 建模", n2:"Excel modelling", d:"模板/公式定制", d2:"Custom templates & formulas", r:460, a:100 },
-    { id:"B2", n:"数据清洗整理", n2:"Data cleaning", d:"脏数据处理", d2:"Messy data, sorted", r:390, a:84 },
-    { id:"B3", n:"财务报表整理", n2:"Financial statements", d:"整理归档 · 不含税务意见", d2:"Organise & file · no tax advice", r:700, a:150 },
-    { id:"B4", n:"可视化仪表盘", n2:"Dashboard (HTML)", d:"单文件 HTML", d2:"Single-file HTML", r:1300, a:280 },
-    { id:"B5", n:"市场调研报告", n2:"Market research report", d:"含信源核实", d2:"Sources verified", r:1700, a:365 },
-    { id:"B6", n:"问卷设计+分析", n2:"Survey design + analysis", d:"设计到结论", d2:"From design to findings", r:950, a:205 },
-    { id:"B7", n:"竞品监测表", n2:"Competitor tracker", d:"价格/销量", d2:"Pricing / sales", r:570, a:122 },
-    { id:"B8", n:"票据归档自动化", n2:"Receipt filing automation", d:"文件夹+索引", d2:"Folders + index", r:460, a:100 }
+    { id:"B1", n:"Excel 建模", n2:"Excel modelling", d:"模板/公式定制", d2:"Custom templates & formulas", r:380, a:81 },
+    { id:"B2", n:"数据清洗整理", n2:"Data cleaning", d:"脏数据处理", d2:"Messy data, sorted", r:320, a:69 },
+    { id:"B3", n:"财务报表整理", n2:"Financial statements", d:"整理归档 · 不含税务意见", d2:"Organise & file · no tax advice", r:560, a:120 },
+    { id:"B4", n:"可视化仪表盘", n2:"Dashboard (HTML)", d:"单文件 HTML", d2:"Single-file HTML", r:1000, a:215 },
+    { id:"B5", n:"市场调研报告", n2:"Market research report", d:"含信源核实", d2:"Sources verified", r:1400, a:300 },
+    { id:"B6", n:"问卷设计+分析", n2:"Survey design + analysis", d:"设计到结论", d2:"From design to findings", r:760, a:163 },
+    { id:"B7", n:"竞品监测表", n2:"Competitor tracker", d:"价格/销量", d2:"Pricing / sales", r:460, a:99 },
+    { id:"B8", n:"票据归档自动化", n2:"Receipt filing automation", d:"文件夹+索引", d2:"Folders + index", r:380, a:81 }
   ]},
   { key:"C", name:"演示与视觉", name2:"Slides & Visuals", items:[
-    { id:"C1", n:"PPT 全套制作", n2:"Full slide deck", d:"大纲到成品", d2:"Outline to finished deck", r:700, a:150 },
-    { id:"C2", n:"PPT 美化改版", n2:"Slide redesign", d:"视觉统一", d2:"Unified visuals", r:420, a:90 },
-    { id:"C3", n:"信息图 / 知识卡片", n2:"Infographic / cards", d:"竖版长图", d2:"Vertical long-form", r:250, a:55 },
-    { id:"C4", n:"海报 / 宣传图", n2:"Poster / promo image", d:"单张", d2:"Per image", r:190, a:40 },
-    { id:"C5", n:"短视频脚本+分镜", n2:"Short-video script + storyboard", d:"含分镜表", d2:"Storyboard included", r:450, a:96 },
-    { id:"C6", n:"封面图批量", n2:"Cover images (bulk)", d:"每张", d2:"each", r:60, a:13 },
-    { id:"C7", n:"产品图精修", n2:"Product photo retouch", d:"去背景 · 每张", d2:"Background removal · each", r:25, a:5 },
-    { id:"C8", n:"活动物料包", n2:"Event pack", d:"海报+邀请函+易拉宝", d2:"Poster + invite + banner", r:950, a:205 }
+    { id:"C1", n:"PPT 全套制作", n2:"Full slide deck", d:"大纲到成品", d2:"Outline to finished deck", r:500, a:107 },
+    { id:"C2", n:"PPT 美化改版", n2:"Slide redesign", d:"视觉统一", d2:"Unified visuals", r:320, a:69 },
+    { id:"C3", n:"信息图 / 知识卡片", n2:"Infographic / cards", d:"竖版长图", d2:"Vertical long-form", r:190, a:41 },
+    { id:"C4", n:"海报 / 宣传图", n2:"Poster / promo image", d:"单张", d2:"Per image", r:140, a:30 },
+    { id:"C5", n:"短视频脚本+分镜", n2:"Short-video script + storyboard", d:"含分镜表", d2:"Storyboard included", r:340, a:73 },
+    { id:"C6", n:"封面图批量", n2:"Cover images (bulk)", d:"每张", d2:"each", r:45, a:10 },
+    { id:"C7", n:"产品图精修", n2:"Product photo retouch", d:"去背景 · 每张", d2:"Background removal · each", r:20, a:4 },
+    { id:"C8", n:"活动物料包", n2:"Event pack", d:"海报+邀请函+易拉宝", d2:"Poster + invite + banner", r:700, a:150 }
   ]},
   { key:"D", name:"代码与技术", name2:"Code & Tech", items:[
-    { id:"D1", n:"落地页 / 官网", n2:"Landing page / website", d:"链接+源码", d2:"Link + source code", r:3300, a:705 },
-    { id:"D2", n:"微信小程序", n2:"WeChat Mini Program", d:"定制开发", d2:"Custom build", r:10200, a:2180 },
-    { id:"D3", n:"表格自动化脚本", n2:"Spreadsheet automation script", d:"脚本+说明", d2:"Script + docs", r:1000, a:215 },
-    { id:"D4", n:"数据抓取整理", n2:"Web scraping", d:"公开数据", d2:"Public data", r:1400, a:300 },
-    { id:"D5", n:"轻量小工具", n2:"Small web tool", d:"可运行程序", d2:"Working app", r:2000, a:430 },
-    { id:"D6", n:"网站维护 / 改 bug", n2:"Site maintenance / bug fix", d:"按次", d2:"Per job", r:580, a:125 }
+    { id:"D1", n:"落地页 / 官网", n2:"Landing page / website", d:"链接+源码", d2:"Link + source code", r:3000, a:642 },
+    { id:"D2", n:"微信小程序", n2:"WeChat Mini Program", d:"定制开发", d2:"Custom build", r:9000, a:1927 },
+    { id:"D3", n:"表格自动化脚本", n2:"Spreadsheet automation script", d:"脚本+说明", d2:"Script + docs", r:900, a:193 },
+    { id:"D4", n:"数据抓取整理", n2:"Web scraping", d:"公开数据", d2:"Public data", r:1250, a:268 },
+    { id:"D5", n:"轻量小工具", n2:"Small web tool", d:"可运行程序", d2:"Working app", r:1800, a:385 },
+    { id:"D6", n:"网站维护 / 改 bug", n2:"Site maintenance / bug fix", d:"按次", d2:"Per job", r:520, a:111 }
   ]},
   { key:"E", name:"情报与研究 ★ 订阅制", name2:"Intelligence & Research ★ Subscription", items:[
-    { id:"E1", n:"定制情报简报 ★", n2:"Custom intelligence brief ★", d:"每周起 · 订阅", d2:"Weekly+ · subscription", r:150, a:32, u:"/月", u2:"/mo" },
-    { id:"E2", n:"竞品动态监测", n2:"Competitor monitoring", d:"周报+预警 · 订阅", d2:"Weekly report + alerts · subscription", r:300, a:65, u:"/月", u2:"/mo" },
-    { id:"E3", n:"政策法规追踪", n2:"Policy & regulation tracker", d:"变更提醒 · 订阅", d2:"Change alerts · subscription", r:190, a:40, u:"/月", u2:"/mo" },
-    { id:"E4", n:"深度研究报告", n2:"In-depth research report", d:"一次性 PDF", d2:"One-off PDF", r:1700, a:365 },
-    { id:"E5", n:"选题/灵感库", n2:"Topic & idea bank", d:"每周 · 订阅", d2:"Weekly · subscription", r:150, a:32, u:"/月", u2:"/mo" }
+    { id:"E1", n:"定制情报简报 ★", n2:"Custom intelligence brief ★", d:"每周起 · 订阅", d2:"Weekly+ · subscription", r:120, a:26, u:"/月", u2:"/mo" },
+    { id:"E2", n:"竞品动态监测", n2:"Competitor monitoring", d:"周报+预警 · 订阅", d2:"Weekly report + alerts · subscription", r:250, a:54, u:"/月", u2:"/mo" },
+    { id:"E3", n:"政策法规追踪", n2:"Policy & regulation tracker", d:"变更提醒 · 订阅", d2:"Change alerts · subscription", r:160, a:34, u:"/月", u2:"/mo" },
+    { id:"E4", n:"深度研究报告", n2:"In-depth research report", d:"一次性 PDF", d2:"One-off PDF", r:1400, a:300 },
+    { id:"E5", n:"选题/灵感库", n2:"Topic & idea bank", d:"每周 · 订阅", d2:"Weekly · subscription", r:120, a:26, u:"/月", u2:"/mo" }
   ]},
   { key:"F", name:"AI 落地服务", name2:"AI Implementation", items:[
     { id:"F1", n:"AI 工具选型", n2:"AI tool selection", d:"方案+演示", d2:"Plan + demo", r:1400, a:300 },
@@ -807,7 +809,7 @@ const I18N = {
     copyBtn:'复制', mailBtn:'发邮件',
     fNotes:'说明 / NOTES',
     ft1:'· 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。',
-    ft2:'· <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥150 起就能试一单，满意再升级到正式版，不绑定、不预付。',
+    ft2:'· <strong>预算有限？</strong>先看最上面的<strong>轻量入口</strong> —— ¥100 起就能试一单，满意再升级到正式版，不绑定、不预付。',
     ft3:'· <strong>澳洲本地客户</strong>（英文服务、以 AUD 结算）另按澳洲本地市场价目，约为上表 A$ 的 2 倍 —— 因为我们交付的是对标澳洲本地市场的中英双语能力。',
     ft4:'· 表单内容仅保存在你自己的浏览器里，不会自动上传到任何服务器——需要你手动复制发送。',
     ft5:'· 询单每天 <strong>8:00 / 12:30 / 20:00</strong> 三批集中处理，<strong>24 小时内</strong>给出方案与报价。',
@@ -856,7 +858,7 @@ const I18N = {
     copyBtn:'Copy', mailBtn:'Email',
     fNotes:'NOTES / 说明',
     ft1:'· Prices shown are <strong>entry-level</strong>: <strong>CNY (¥) is the main price</strong>; AUD (A$, + GST) is the currency actually charged, converted at <strong>1 AUD ≈ 4.67 CNY</strong> (2026-10-09). Pro ×1.4, Premium ×1.9 — the final written quote prevails.',
-    ft2:'· <strong>On a budget?</strong> Start from <strong>Quick Start</strong> at the very top — try one job from ¥150, then upgrade. No lock-in, no prepayment.',
+    ft2:'· <strong>On a budget?</strong> Start from <strong>Quick Start</strong> at the very top — try one job from ¥100, then upgrade. No lock-in, no prepayment.',
     ft3:'· <strong>Local Australian clients</strong> (English delivery, billed in AUD) are quoted at the local market rate, about 2× the A$ column — because what we deliver is bilingual capability benchmarked to the Australian market.',
     ft4:'· Form content stays in your own browser and is never uploaded automatically — you copy and send it yourself.',
     ft5:'· Orders are processed in 3 daily batches (<strong>8:00 / 12:30 / 20:00</strong>), with a plan and quote <strong>within 24 hours</strong>.',
