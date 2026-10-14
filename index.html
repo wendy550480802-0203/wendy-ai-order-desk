@@ -669,7 +669,7 @@
         </div>
         <pre id="out_text"></pre>
         <div class="out-foot">
-          <span class="tip" data-i18n="tip">复制这张卡发到微信，或直接点右边发邮件到 <strong>iept2873@agent.qq.com</strong>（系统会自动分类回复）。</span>
+          <span class="tip" data-i18n="tip">复制这张卡发到微信，或直接点右边发邮件到 <strong>wendy.studio.ai@gmail.com</strong>（系统会自动分类回复）。</span>
           <button class="mini primary" id="copy" data-i18n="copyBtn">复制</button>
           <button class="mini" id="mail" data-i18n="mailBtn">发邮件</button>
         </div>
@@ -805,7 +805,7 @@ const I18N = {
     s4h:'接单前自检', s4hint:'这几类我确实做不了',
     genBtn:'生成我的询单卡 →', resetBtn:'清空重填',
     waitTag:'等待发送', tagWarn:'含待确认项',
-    tip:'复制这张卡发到微信，或直接点右边发邮件到 <strong>iept2873@agent.qq.com</strong>（系统会自动分类回复）。',
+    tip:'复制这张卡发到微信，或直接点右边发邮件到 <strong>wendy.studio.ai@gmail.com</strong>（系统会自动分类回复）。',
     copyBtn:'复制', mailBtn:'发邮件',
     fNotes:'说明 / NOTES',
     ft1:'· 本页价格为<strong>基础版起价</strong>：<strong>人民币（¥）为主价</strong>，澳元（A$，+ GST）为实际收款币种，按 <strong>1 AUD ≈ 4.67 CNY</strong>（2026-10-09）折算。专业版 ×1.4、尊享版 ×1.9，最终报价以书面报价单为准。',
@@ -854,7 +854,7 @@ const I18N = {
     s4h:'Before we start', s4hint:'A few things I really can\'t take on',
     genBtn:'Generate my order card →', resetBtn:'Clear &amp; restart',
     waitTag:'Waiting to send', tagWarn:'Needs review',
-    tip:'Copy this card into WeChat, or click to email it to <strong>iept2873@agent.qq.com</strong> (auto-classified and replied).',
+    tip:'Copy this card into WeChat, or click to email it to <strong>wendy.studio.ai@gmail.com</strong> (auto-classified and replied).',
     copyBtn:'Copy', mailBtn:'Email',
     fNotes:'NOTES / 说明',
     ft1:'· Prices shown are <strong>entry-level</strong>: <strong>CNY (¥) is the main price</strong>; AUD (A$, + GST) is the currency actually charged, converted at <strong>1 AUD ≈ 4.67 CNY</strong> (2026-10-09). Pro ×1.4, Premium ×1.9 — the final written quote prevails.',
@@ -1147,7 +1147,7 @@ document.getElementById('copy').addEventListener('click',async()=>{
 document.getElementById('mail').addEventListener('click',()=>{
   const card=document.getElementById('out_text').textContent;
   const subj=encodeURIComponent(t('mailPrefix')+(document.getElementById('f_name').value.trim()||t('mailNew')));
-  location.href=`mailto:iept2873@agent.qq.com?subject=${subj}&body=${encodeURIComponent(card)}`;
+  location.href=`mailto:wendy.studio.ai@gmail.com?subject=${subj}&body=${encodeURIComponent(card)}`;
 });
 
 /* ========== 重置 ========== */
